@@ -1,0 +1,12 @@
+{
+  "first": {
+    "length": 3,
+    "width": 5,
+    "hight": 7
+  },
+  "second": {
+    "length": 5,
+    "width": 7,
+    "hight": 3
+  }
+}
