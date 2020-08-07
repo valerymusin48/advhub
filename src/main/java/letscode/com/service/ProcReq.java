@@ -57,8 +57,8 @@ public class ProcReq {
         JSONObject jsonObject = jsonService.getValue(jsonStr, name);
         int length = jsonService.getValue(jsonObject, "length");
         int width = jsonService.getValue(jsonObject, "width");
-        int hight = jsonService.getValue(jsonObject, "hight");
-        return new Parallep(length, width, hight);
+        int height  = jsonService.getValue(jsonObject, "height");
+        return new Parallep(length, width, height );
     }
 
 

@@ -7,30 +7,30 @@ public class Parallep {
 
     private int length;
     private int width;
-    private int hight;
+    private int height;
 
 
-    public Parallep(int length, int width, int hight) {
+    public Parallep(int length, int width, int height ) {
         this.length = length;
         this.width = width;
-        this.hight = hight;
+        this.height = height;
     }
     public int getValue() {
-        return length * width * hight;
+        return length * width * height ;
     }
     public List<int[]> getTurns() {
         int[][] turns =  {
             {
-                length, width, hight
+                length, width, height 
             },
             {
-                length, hight, width
+                length, height, width
             },
             {
-                width, length, hight
+                width, length, height 
             },
             {
-                hight, width, length
+                height, width, length
             }
 
         };
@@ -42,7 +42,7 @@ public class Parallep {
     private boolean lessEq(int[] turn) {
         if (turn[0] <= length &&
             turn[1] <= width &&
-            turn[2] <= hight)  {
+            turn[2] <= height )  {
             return true;
         }
         return false;
