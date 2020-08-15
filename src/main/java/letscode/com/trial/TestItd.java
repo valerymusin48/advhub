@@ -60,7 +60,7 @@ public class TestItd {
     private static int loopFound = -1;
     private static int notFound = 0;
 
-    static int[][] perevods = new int[][] {
+    static int[][] perevods = new int[][]{
             {1, 1, 6, 16365},
             {2, 6, 2, 1902},
             {3, 6, 3, 5940},
@@ -123,7 +123,7 @@ public class TestItd {
     }
 
     // class Route - маршрут
-    private static class Route  {
+    private static class Route {
         public Node getRoot() {
             return root;
         }
@@ -171,13 +171,15 @@ public class TestItd {
         int rootNum;
         List<Integer> pers = new ArrayList<>();
         Set<Integer> nodes = new HashSet<>();
+
         public String getPath() {
             StringBuffer result = new StringBuffer("");
             pers.forEach(per -> {
-                result.append("per("+ per + ") " + getFrNodeNum(per) + "->" + getToNodeNum(per) + "  ");
+                result.append("per(" + per + ") " + getFrNodeNum(per) + "->" + getToNodeNum(per) + "  ");
             });
             return result.toString();
         }
+
         public String getSums() {
             StringBuffer result = new StringBuffer("");
             nodes.forEach(n -> {
@@ -186,24 +188,29 @@ public class TestItd {
             });
             return result.toString();
         }
+
         public Route(int rootNum) {
             this.rootNum = rootNum;
             root = clients.get(rootNum - 1);
             nodes.add(rootNum);
         }
-        public void addPer(int per)  {
+
+        public void addPer(int per) {
             pers.add(per);
-            numOfSteps ++;
+            numOfSteps++;
         }
+
         public void addNode(int nodeNum) {
             nodes.add(nodeNum);
         }
+
         public Route clone() {
             Route cl = new Route(rootNum);
             pers.forEach(per -> cl.addPer(per));
             nodes.forEach(node -> cl.addNode(node));
             return cl;
         }
+
         public int checkNode(int nodeNum) {
             if (nodeNum == rootNum) {
                 return rootFound;
@@ -213,8 +220,9 @@ public class TestItd {
             }
             return notFound;
         }
+
         public boolean isEqual(Route route) {
-            if(route.getNumOfSteps() != numOfSteps ) {
+            if (route.getNumOfSteps() != numOfSteps) {
                 return false;
             }
             return pers.stream().filter(per -> !route.pers.contains(per)).count() == 0;
@@ -295,19 +303,24 @@ public class TestItd {
         Set<Integer> intoPers = new HashSet<>();
         int numIntoPers = 0;
         int numFromPers = 0;
+
         public Node(int nodeId) {
             this.nodeId = nodeId;
         }
+
         public void sumAdd(int sum) {
             addSum += sum;
         }
+
         public void sumSub(int sum) {
             subSum += sum;
         }
+
         public void addIntoPer(int per) {
             intoPers.add(per);
-            numIntoPers ++;
+            numIntoPers++;
         }
+
         public void addPer(int per) {
             perevs.add(per);
             Node clientTo = getToNode(per);
@@ -315,19 +328,22 @@ public class TestItd {
             clientTo.sumAdd(sum);
             sumSub(sum);
             nodes.add(clientTo);
-            numFromPers ++;
+            numFromPers++;
         }
+
         int numOfCicles;
+
         public void incrCicles() {
-            numOfCicles ++;
+            numOfCicles++;
         }
+
         public boolean isToStartCicle() {
             return numIntoPers > 0 && numFromPers > numOfCicles;
         }
     } // class Node - клиент
 
     static void setPerevods() {
-        for(int i = 1; i <= numPer; i ++) {
+        for (int i = 1; i <= numPer; i++) {
             Node clientFr = getFrNode(i);
             clientFr.addPer(i);
             Node clientTo = getToNode(i);
@@ -338,15 +354,18 @@ public class TestItd {
     }
 
     static void setNodes() {
-        for(int i = 1; i <= numCl; i++) {
+        for (int i = 1; i <= numCl; i++) {
             Node node = new Node(i);
             clients.add(node);
         }
     }
+
     static Node getNode(int client) {
-        return clients.get(client -1);
+        return clients.get(client - 1);
     }
+
     static List<Route> cicles = new ArrayList<>();
+
     static void addCicle(Route route) {
         if (cicles.stream().filter(rt -> route.isEqual(rt)).count() > 0)
             return;
@@ -355,6 +374,7 @@ public class TestItd {
             getNode(nodeId).incrCicles();
         });
     }
+
     // найти все маршруты стартующие из Root (клиента
     static void findRouts(int per, Route route) {
         Node next = route.getRoot();
@@ -405,45 +425,4 @@ public class TestItd {
         System.out.println(" finished ");
     }
 
-    public static class TestUdv {
-        private static Object vals;
-
-        public static void main(String[] args) {
-
-            String[] in = {"qwe","wqe","qwee","a","a", "eqw"};
-            purseIt(in, 3);
-
-        }
-        static String sortIt(String str) {
-            char charArray[] = str.toCharArray();
-            Arrays.sort(charArray);
-            return new String(charArray);
-        }
-        static String dispIt(List<Integer> list) {
-            StringBuffer buf = new StringBuffer(" ");
-            list.stream().forEach(i -> {
-                buf.append(i).append(",");
-            });
-            return buf.deleteCharAt(buf.length() - 1).toString();
-        }
-        static void purseIt(String[] vals, int num) {
-            ConcurrentMap<String, List<Integer>> map = new ConcurrentHashMap<>();
-            int ind = 0;
-            for (String str : vals) {
-                String sorted = sortIt(str);
-                List list = map.get(sorted);
-                if (list == null) {
-                   list = new ArrayList();
-                }
-                list.add(ind ++);
-                map.put(sorted, list);
-            }
-            map.keySet().stream().filter(res -> map.get(res).size() >= num)
-                    .forEach(res -> {
-                        System.out.println(res + dispIt(map.get(res)));
-                    }
-
-            );
-        }
-    }
 }
