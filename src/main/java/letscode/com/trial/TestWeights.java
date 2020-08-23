@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Testweights {
+public class TestWeights {
 
     /*
         Написать функцию, возвращающую количество комбинаций
@@ -12,7 +12,7 @@ public class Testweights {
 
     */
     // набор весов грузиков
-    static int[] allweights = {1000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
+    static int[] allWeights = {1000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
 
     static int numOfComb = 0;
 
@@ -26,28 +26,27 @@ public class Testweights {
         check(0, comb);
         if (isToPrint) {
             combs.stream().forEach(cmb -> {
-                System.out.println(cmb.getweightsComb());
+                System.out.println(cmb.getWeightsComb());
             });
         }
         System.out.println(" number of combinations = " + numOfComb);
     }
     public static class Comb {
-        int sumweight = 0;
+        int sumWeight = 0;
         int[] combin;
-
-        public Comb(int sumweight) {
-            this.sumweight = sumweight;
-            combin = new int[allweights.length];
+        public int getSumWeight() {
+            return sumWeight;
         }
-        public String getweightsComb() {
+        public Comb(int sumWeight) {
+            this.sumWeight = sumWeight;
+            combin = new int[allWeights.length];
+        }
+        public String getWeightsComb() {
             StringBuffer buf = new StringBuffer();
             Arrays.stream(combin).forEach(cm -> {
                 buf.append(cm + " ");
             });
             return buf.toString();
-        }
-        public int getSumweight() {
-            return sumweight;
         }
 
         public void setCombin(int[] combin) {
@@ -55,19 +54,19 @@ public class Testweights {
         }
 
         public Comb clone() {
-            Comb cm = new Comb(sumweight);
+            Comb cm = new Comb(sumWeight);
             cm.setCombin(combin);
             return cm;
         }
         public void setInd(int ind, int num) {
             combin[ind - 1] = num;
-            sumweight -= allweights[ind - 1] * num;
+            sumWeight -= allWeights[ind - 1] * num;
         }
     }
     public static void check(int ind, Comb comb) {
 //    	System.out.println(" ind " + ind);
         if (ind > 0) {
-            if (comb.getSumweight() == 0) {
+            if (comb.getSumWeight() == 0) {
                 if (isToPrint)
                     combs.add(comb);
                 numOfComb ++;
@@ -75,15 +74,15 @@ public class Testweights {
             }
         }
         ind ++;
-        if (ind == allweights.length) {
-            comb.setInd(ind, comb.getSumweight());
+        if (ind == allWeights.length) {
+            comb.setInd(ind, comb.getSumWeight());
             if (isToPrint)
                 combs.add(comb);
             numOfComb ++;
             return;
         }
-        int weight = allweights[ind - 1];
-        int numCl = comb.getSumweight() / weight;
+        int weight = allWeights[ind - 1];
+        int numCl = comb.getSumWeight() / weight;
         for (int i = 0; i <= numCl; i ++) {
             Comb cm = comb.clone();
             cm.setInd(ind, i);
