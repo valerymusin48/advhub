@@ -128,45 +128,16 @@ public class TestItd {
             return root;
         }
 
-        public void setRoot(Node root) {
-            this.root = root;
-        }
-
         public int getNumOfSteps() {
             return numOfSteps;
-        }
-
-        public void setNumOfSteps(int numOfSteps) {
-            this.numOfSteps = numOfSteps;
-        }
-
-        public List<Integer> getPers() {
-            return pers;
-        }
-
-        public void setPers(List<Integer> pers) {
-            this.pers = pers;
         }
 
         public Set<Integer> getNodes() {
             return nodes;
         }
 
-        public void setNodes(Set<Integer> nodes) {
-            this.nodes = nodes;
-        }
-
         Node root;
         int numOfSteps;
-
-
-        public int getRootNum() {
-            return rootNum;
-        }
-
-        public void setRootNum(int rootNum) {
-            this.rootNum = rootNum;
-        }
 
         int rootNum;
         List<Integer> pers = new ArrayList<>();
@@ -235,66 +206,17 @@ public class TestItd {
             return nodeId;
         }
 
-        public void setNodeId(int nodeId) {
-            this.nodeId = nodeId;
-        }
-
-        public int getAddSum() {
+         public int getAddSum() {
             return addSum;
-        }
-
-        public void setAddSum(int addSum) {
-            this.addSum = addSum;
         }
 
         public int getSubSum() {
             return subSum;
         }
 
-        public void setSubSum(int subSum) {
-            this.subSum = subSum;
-        }
-
         public List<Integer> getPerevs() {
             return perevs;
         }
-
-        public void setPerevs(List<Integer> perevs) {
-            this.perevs = perevs;
-        }
-
-        public List<Node> getNodes() {
-            return nodes;
-        }
-
-        public void setNodes(List<Node> nodes) {
-            this.nodes = nodes;
-        }
-
-        public Set<Integer> getIntoPers() {
-            return intoPers;
-        }
-
-        public void setIntoPers(Set<Integer> intoPers) {
-            this.intoPers = intoPers;
-        }
-
-        public int getNumIntoPers() {
-            return numIntoPers;
-        }
-
-        public void setNumIntoPers(int numIntoPers) {
-            this.numIntoPers = numIntoPers;
-        }
-
-        public int getNumFromPers() {
-            return numFromPers;
-        }
-
-        public void setNumFromPers(int numFromPers) {
-            this.numFromPers = numFromPers;
-        }
-
         int nodeId;
         int addSum;
         int subSum;
@@ -348,8 +270,6 @@ public class TestItd {
             clientFr.addPer(i);
             Node clientTo = getToNode(i);
             clientTo.addIntoPer(i);
-//            System.out.println(" per " + clientFr.nodeId + " " + clientFr.numFromPers);
-//            System.out.println(" per " + clientTo.nodeId + " " + clientTo.numIntoPers);
         }
     }
 
@@ -407,7 +327,6 @@ public class TestItd {
     }
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         setNodes();
         setPerevods();
         clients.stream().filter(node -> node.isToStartCicle()).forEach(node -> {

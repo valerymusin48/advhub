@@ -31,16 +31,20 @@ public class TestWeights {
         }
         System.out.println(" number of combinations = " + numOfComb);
     }
+
     public static class Comb {
         int sumWeight = 0;
         int[] combin;
+
         public int getSumWeight() {
             return sumWeight;
         }
+
         public Comb(int sumWeight) {
             this.sumWeight = sumWeight;
             combin = new int[allWeights.length];
         }
+
         public String getWeightsComb() {
             StringBuffer buf = new StringBuffer();
             Arrays.stream(combin).forEach(cm -> {
@@ -58,36 +62,35 @@ public class TestWeights {
             cm.setCombin(combin);
             return cm;
         }
+
         public void setInd(int ind, int num) {
             combin[ind - 1] = num;
             sumWeight -= allWeights[ind - 1] * num;
         }
     }
+
     public static void check(int ind, Comb comb) {
 //    	System.out.println(" ind " + ind);
         if (ind > 0) {
             if (comb.getSumWeight() == 0) {
                 if (isToPrint)
                     combs.add(comb);
-                numOfComb ++;
+                numOfComb++;
                 return;
             }
         }
-        ind ++;
-        if (ind == allWeights.length) {
-            comb.setInd(ind, comb.getSumWeight());
-            if (isToPrint)
-                combs.add(comb);
-            numOfComb ++;
+
+        if (++ind > allWeights.length) {
             return;
         }
         int weight = allWeights[ind - 1];
         int numCl = comb.getSumWeight() / weight;
-        for (int i = 0; i <= numCl; i ++) {
+        for (int i = 0; i <= numCl; i++) {
             Comb cm = comb.clone();
             cm.setInd(ind, i);
             check(ind, cm);
         }
     }
+
     public static List<Comb> combs = new ArrayList<>();
 }
