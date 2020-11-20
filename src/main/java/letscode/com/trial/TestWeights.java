@@ -9,6 +9,12 @@ public class TestWeights {
     /*
         Написать функцию, возвращающую количество комбинаций
         заданного набора весов грузиков для заданного веса.
+       Пример : вес 50
+       start weight = 50
+        number of combinations = 451
+        два из них
+       1.  1 гиря 50
+       2. 50 гирь по 1
 
     */
     // набор весов грузиков
@@ -19,10 +25,10 @@ public class TestWeights {
     static boolean isToPrint;
 
     public static void main(String[] args) {
-        int weight = 25;  // заданный вес
+        int weight = 50;  // заданный вес
         Comb comb = new Comb(weight);
         System.out.println(" start weight = " + weight);
-        isToPrint = weight < 100;
+        isToPrint = weight < 50;
         check(0, comb);
         if (isToPrint) {
             combs.stream().forEach(cmb -> {
@@ -86,7 +92,7 @@ public class TestWeights {
         int weight = allWeights[ind - 1];
         int numCl = comb.getSumWeight() / weight;
         for (int i = 0; i <= numCl; i++) {
-            Comb cm = comb.clone();
+            Comb cm = i > 0 ? comb.clone() : comb;
             cm.setInd(ind, i);
             check(ind, cm);
         }
